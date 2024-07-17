@@ -1,12 +1,14 @@
 package json
 
 import (
-	"encoding/json"
+	jsoniter "github.com/json-iterator/go"
 	"tools/pkg/bytesconv"
 )
 
+var jsonL = jsoniter.ConfigCompatibleWithStandardLibrary
+
 func Marshal2String[T any](v T) (string, error) {
-	bytes, err := json.Marshal(v)
+	bytes, err := jsonL.Marshal(v)
 	if err != nil {
 		return "", err
 	}
@@ -14,7 +16,7 @@ func Marshal2String[T any](v T) (string, error) {
 }
 
 func Marshal2Bytes[T any](v T) ([]byte, error) {
-	bytes, err := json.Marshal(v)
+	bytes, err := jsonL.Marshal(v)
 	if err != nil {
 		return nil, err
 	}
@@ -22,7 +24,7 @@ func Marshal2Bytes[T any](v T) ([]byte, error) {
 }
 func UnmarshalFromBytes[T any](data []byte) (T, error) {
 	var v T
-	err := json.Unmarshal(data, &v)
+	err := jsonL.Unmarshal(data, &v)
 	return v, err
 }
 
